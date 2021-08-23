@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-7 ">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>User Profile</h4>
+        </div>
+        <div class="panel-body">
+
+          <div class="box box-info">
+
+            <div class="box-body">
+              <div class="col-sm-6">
+                <div align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                    id="profile-image1" class="img-circle img-responsive">
+
+                  <input id="profile-image-upload" class="hidden" type="file">
+                  <div style="color:#FF8C00;">click here to change profile image</div>
+                  <!--Upload Image Js And Css-->
+                </div>
+                <br>
+                <!-- /input-group -->
+              </div>
+              <div class="col-sm-6">
+                <h4 style="color:#FF8C00;">MR Joe Bloggs </h4></span>
+                <span>
+                  <p>Handyman</p>
+                </span>
+              </div>
+              <div class="clearfix"></div>
+              <hr style="margin:5px 0 5px 0;">
+
+
+              <div class="col-sm-5 col-xs-6 title ">First Name:</div>
+              <div class="col-sm-7 col-xs-6 ">Joe</div>
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Middle Name:</div>
+              <div class="col-sm-7"> John</div>
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Last Name:</div>
+              <div class="col-sm-7"> Bloggs</div>
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Date Of Joining:</div>
+              <div class="col-sm-7">15 Jun 2016</div>
+
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Date Of Birth:</div>
+              <div class="col-sm-7">11 Jun 1998</div>
+
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">City:</div>
+              <div class="col-sm-7">Cardiff</div>
+
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Email:</div>
+              <div class="col-sm-7">sample@sample.com</div>
+
+
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+              <div class="col-sm-5 col-xs-6 title ">Nationality:</div>
+              <div class="col-sm-7">British</div>
+
+
+              <div class="clearfix"></div>
+              <div class="bot-border"></div>
+
+              <div class="col-sm-5 col-xs-6 title ">Gender:</div>
+              <div class="col-sm-7">Male</div>
+
+
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        $('#profile-image1').on('click', function () {
+          $('#profile-image-upload').click();
+        });
+      });       
+    </script>
+  </div>
+</div>
+
+    <div id="todo" data-role="collapsible" data-collapsed="false">
+      <h1 class="to_do">To Do List:</h1>
+      <table id="tasks">
+        <thead>
+          <td>My Task ID</td>
+          <td>Task ID</td>
+          <td>Location</td>
+          <td>Date and Time</td>
+          <td>Categories</td>
+          <td>Description</td>
+          <td>Groups</td>
+          <td>On Behalf</td>
+          <td>Complete/Delete</td>
+        </thead>
+        {% for row in MT %}
+        <tr>
+          <td>{{row.MyTaskID}}</td>
+          <td>{{row.TaskID}}</td>
+          <td>{{row.Locations}}</td>
+          <td>{{row.DnT}}</td>
+          <td> {{row.Categories}}</td>
+          <td>{{row.Description}}</td>
+          <td> {{row.Groups}}</td>
+          <td>{{row.OnBehalf}}</td>
+          <td>
+            <form method="POST" action="/completeTask">
+              <input type="hidden" value="{{row.MyTaskID}}" name="MyTaskID">
+              <input type="hidden" value="{{row.TaskID}}" name="TaskID">
+              <input type="hidden" value="{{row.Locations}}" name="Locations">
+              <input type="hidden" value="{{row.DnT}}" name="DnT">
+              <input type="hidden" value="{{row.Categories}}" name="Categories">
+              <input type="hidden" value="{{row.Description}}" name="Description">
+              <input type="hidden" value="{{row.Groups}}" name="Groups">
+              <input type="hidden" value="{{row.OnBehalf}}" name="OnBehalf">
+              <button class="optionbutton" type="submit" value="Complete">Complete</button>
+            </form>
+            <form method="POST" action="/deleteTask">
+              <input type="hidden" value="{{row.MyTaskID}}" name="MyTaskID">
+              <button class="optionbutton" type="submit" value="Delete">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <ul id="todo-list" data-role="listview" data-inset="true">
+      </ul>
+    </div>
+
+    <hr>
+
+    <div id="completed" data-role="collapsible" data-collapsed="false">
+      <h1 class="to_do">Completed List:</h1>
+      <table id="tasks">
+        <thead>
+          <td>CompleteList ID</td>
+          <td>My Task ID</td>
+          <td>Task ID</td>
+          <td>Location</td>
+          <td>Date and Time</td>
+          <td>Categories</td>
+          <td>Description</td>
+          <td>Groups</td>
+          <td>On Behalf</td>
+        </thead>
+        {% for rows in CL %}
+        <tr>
+          <td>{{rows.CompleteListID}}</td>
+          <td>{{rows.MyTaskID}}</td>
+          <td>{{rows.TaskID}}</td>
+          <td>{{rows.Locations}}</td>
+          <td>{{rows.DnT}}</td>
+          <td> {{rows.Categories}}</td>
+          <td>{{rows.Description}}</td>
+          <td> {{rows.Groups}}</td>
+          <td>{{rows.OnBehalf}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      <ul id="completed-list" data-role="listview" data-inset="true">
+      </ul>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

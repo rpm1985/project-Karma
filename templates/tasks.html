@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+<div id="task-form">
+  <div>
+    <h1>Task Form</h1>
+    <h4>Please fill in the form to request a task.</h4>
+  </div>
+  <form id="taskform" name="taskform" action="#" class="taskForm" onsubmit="return taskForm()">
+    <div>
+      <label for="location">
+        <span class="required">Location: *</span>
+        <input type="text" id="locations" placeholder="Location" name="locations" required="required" tabindex="3">
+        <span id='Location-error'></span>
+      </label>
+    </div>
+    <div>
+      <label class='input-group date' id='datetimepicker1'>
+        <span class="required">Date & Time: *</span>
+        <input type="text" id="DnT" placeholder="Date & Time" name="DnT" required="required" tabindex="4">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        <span id='DnT-error'></span>
+      </label>
+    </div>
+    <div>
+      <label for="categories">
+        <span class="required">Categories: </span>
+        <select id="category" name="category" tabindex="5">
+          <option value="General">General</option>
+          <option value="Light Cleaning">Light Cleaning</option>
+          <option value="Laundry">Laundry</option>
+          <option value="Lawn Mowing">Lawn Mowing</option>
+          <option value="Hedge Trimming">Hedge Trimming</option>
+          <option value="General Conversation">General Conversation</option>
+          <option value="Watch A Film">Watch A Film</option>
+          <option value="Play A Game">Play A Game</option>
+          <option value="Tell A Story">Tell A story</option>
+          <option value="Coffee Shop">Coffee Shop</option>
+          <option value="Garden Centre">Garden Centre</option>
+          <option value="Club">Club</option>
+          <option value="Pet Care - Walk">Pet Care - Walk</option>
+          <option value="Pet Care - Clean">Pet Care - Clean</option>
+          <option value="Pet Care - Feed">Pet Care - Feed</option>
+          <option value="Appointments">Appointments</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Drop Off">Drop Off</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label for="briefDesc">
+        <span class="required">Description: *</span>
+        <textarea id="BDesc" name="BDesc" placeholder="Please write a brief description of task. 500 characters max."
+          tabindex="6" required="required" maxlength="510" onkeyup='validateBdesc()'></textarea>
+      </label>
+      <span id='Bdesc-error'></span>
+    </div>
+    <div>
+      <label for="groups">
+        <span class="required">Groups: </span>
+        <select id="group" name="group" tabindex="7">
+          <option value="General">General - Anyone</option>
+          <option value="Gardeners">Gardeners</option>
+          <option value="Cleaners">Cleaners</option>
+          <option value="Drivers">Drivers</option>
+          <option value="Chefs">Chefs</option>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label for="OnBehalf">
+        <span class="required">On Behalf: </span>
+        <select id="OnBehalf" name="OnBehalf" tabindex="8">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" id="submit" onclick="window.location.href='/alltasks'">SEND</button>
+    <br>
+    <span id='submit-error'></span>
+    <br>
+  </form>
+</div>
+
+<script>
+function taskForm() {
+  var Locations = document.forms["taskform"]["locations"].value;
+  var DnT = document.forms["taskform"]["DnT"].value;
+  var Categories = document.forms["taskform"]["category"].value;
+  var Description = document.forms["taskform"]["BDesc"].value;
+  var Groups = document.forms["taskform"]["group"].value;
+  var OnBehalf = document.forms["taskform"]["OnBehalf"].value;
+  params = 'Locations=' + Locations + '&DnT=' + DnT + '&Categories=' + Categories + '&Description=' + Description + '&Groups=' + Groups + '&OnBehalf=' + OnBehalf;
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", '/AddTask', true); // true is asynchronous
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.onload = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      console.log(xhttp.responseText);
+      document.getElementById("submit-error").innerHTML = xhttp.responseText;
+    } else {
+      console.error(xhttp.statusText);
+    }
+  };
+  xhttp.send(params);
+  return false;
+}
+
+$(function () {
+  $('#datetimepicker1').datetimepicker();
+});
+</script>
+{% endblock %}

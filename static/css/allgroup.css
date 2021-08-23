@@ -1,0 +1,55 @@
+.columnTitles{
+  border: 2px solid #FF8C00;
+  text-align: center;
+  padding: 8px;
+  color: white;
+}
+.RowInfo{
+  border: 2px solid #FF8C00;
+  padding: 8px;
+  background-color: rgba(72, 72, 72, 0.7);
+  color: white;
+}
+.GroupTBL{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  background-color: rgba(72, 72, 72, 0.7);
+  margin-left: auto;
+  margin-right: auto;
+}
+.Block:hover{
+  background-color: #FF8C00;
+}
+.addgroups{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  background-color: grey;
+  border: 1px solid #FF8C00;
+  padding: 2px;
+  margin-bottom: 1%;
+}
+.joinbutton{
+  display: block;
+  color: white;
+  background-color: grey;
+  border: 1px solid #FF8C00;
+  padding: 2px;
+  margin-bottom: 1%;
+}
+.joinbutton{
+  background-color: grey;
+  border: 1px solid #FF8C00;
+  padding: 5px 5px;
+  margin-right: 3px;
+  margin-left: 3px;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.joinbutton:hover{
+  background-color: #FF8C00;
+}

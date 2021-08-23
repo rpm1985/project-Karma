@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+<form id="form1" name="form1" action="#" class="regForm" onsubmit="return regform()">
+  <h1 class="headerForm"> KARMA Registration </h1>
+
+  <input type="text" id="first-name" placeholder="First Name" name="Fname" onkeyup='validateFName()'>
+  <span id='Fname-error'></span>
+  <br>
+
+  <input type="text" id="surname" placeholder="Surname" name="Sname" onkeyup='validateSName()'>
+  <span id='Sname-error'></span>
+  <br>
+
+  <input type="text" id="DOB" placeholder="Date of birth" name="DateOfBirth" onkeyup='validateDOB()'>
+  <span id='DOB-error'></span>
+  <br>
+
+  <input type="text" name="Address" placeholder="Address"><br>
+
+  <input type="text" id="postcode" placeholder="Postcode" name="Postcode" onkeyup='validatePostCode()'>
+  <span id='PC-error'></span>
+  <br>
+
+  <input type="text" id="phone-number" name="TelephoneNumber" placeholder="Telephone number" onkeyup='validatePhone()'>
+  <span id='Phone-error'></span>
+  <br>
+
+  <input type="text" id="e-mail" placeholder="Email Address" name="EmailAddress" onkeyup='validateEmail()'>
+  <span id='Email-error'></span>
+  <br>
+
+  <input type="text" name="Username" placeholder="username"><br>
+
+  <input type="current-password" name="Password" placeholder="Password"><br>
+  <button type="submit" id="subbutton" onclick="setTimeout(function () { window.location.reload(); }, 10)">Submit</button>
+  <br>
+  <span id='submit-error'></span>
+  <br>
+
+</form>
+
+<script>
+function regform() {
+  var FirstName = document.forms["form1"]["Fname"].value;
+  var Surname = document.forms["form1"]["Sname"].value;
+  var DateOfBirth = document.forms["form1"]["DateOfBirth"].value;
+  var Address = document.forms["form1"]["Address"].value;
+  var Postcode = document.forms["form1"]["Postcode"].value;
+  var TelephoneNumber = document.forms["form1"]["TelephoneNumber"].value;
+  var EmailAddress = document.forms["form1"]["EmailAddress"].value;
+  var Username = document.forms["form1"]["Username"].value;
+  var Password = document.forms["form1"]["Password"].value;
+  params = 'FirstName=' + FirstName + '&Surname=' + Surname + '&DateOfBirth=' + DateOfBirth + '&Address=' + Address + '&Postcode=' + Postcode + '&TelephoneNumber=' + TelephoneNumber + '&EmailAddress=' + EmailAddress + '&Username=' + Username + '&Password=' + Password;
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", '/AddAccount', true); // true is asynchronous
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.onload = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      console.log(xhttp.responseText);
+      document.getElementById("submit-error").innerHTML = xhttp.responseText;
+    } else {
+      console.error(xhttp.statusText);
+    }
+  };
+  xhttp.send(params);
+  return false;
+}
+</script>
+{% endblock %}

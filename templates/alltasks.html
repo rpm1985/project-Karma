@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+<button onclick="window.location.href='/tasks'" class="taskbutton"> Add A New Task</button>
+<table id="tasks">
+    <thead>
+        <td>Task ID</td>
+        <td>Location</td>
+        <td>Date and Time</td>
+        <td>Categories</td>
+        <td>Description</td>
+        <td>Groups</td>
+        <td>On Behalf</td>
+        <td>Accept/Decline</td>
+    </thead>
+    {% for row in rows %}
+    <tr>
+        <td>{{row.TaskID}}</td>
+        <td>{{row.Locations}}</td>
+        <td>{{row.DnT}}</td>
+        <td> {{row.Categories}}</td>
+        <td>{{row.Description}}</td>
+        <td> {{row.Groups}}</td>
+        <td>{{row.OnBehalf}}</td>
+        <td>
+            <form method="POST" action="/acceptTask">
+                <input type="hidden" value="{{row.TaskID}}" name="TaskID">
+                <input type="hidden" value="{{row.Locations}}" name="Locations">
+                <input type="hidden" value="{{row.DnT}}" name="DnT">
+                <input type="hidden" value="{{row.Categories}}" name="Categories">
+                <input type="hidden" value="{{row.Description}}" name="Description">
+                <input type="hidden" value="{{row.Groups}}" name="Groups">
+                <input type="hidden" value="{{row.OnBehalf}}" name="OnBehalf">
+                <button class="optionbutton" type="submit" value="Accept">Accept</button>
+            </form>
+            <form method="POST" action="/declineTask">
+                <input type="hidden" value="{{row.TaskID}}" name="TaskID">
+                <button class="optionbutton" type="submit" value="Decline">Decline</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

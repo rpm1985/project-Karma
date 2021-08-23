@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form id="form2" name="form2" action="#" class="groupForm" onsubmit="return Groupform()">
+  <h1 class="headerForm"> Group Registration </h1>
+
+  <input type="text" id="GroupName" placeholder="GroupName" name="GroupName" onkeyup="validategroupName()">
+  <span id='GroupName-error'></span>
+  <br>
+
+  <input type="text" id="GroupDescription" placeholder="GroupDescription" name="GroupDescription" onkeyup="validategroupDescription()">
+  <span id='GroupDescription-error'></span>
+  <br>
+
+  <input type="text" id="GroupArea" placeholder="GroupArea" name="GroupArea" onkeyup="validategroupArea()">
+  <span id='GroupArea-error'></span>
+  <br>
+
+  <button type="submit" id="subbutton1" onclick="setTimeout(function () { window.location.reload(); }, 10)">Submit</button>
+  <br>
+  <span id='submit-error'></span>
+  <br>
+</form>
+<button class="GroupRegBTN" onclick="window.location.href='/allgroups'"> View all groups </button>
+<script>
+function Groupform() {
+  var GroupName = document.forms["form2"]["GroupName"].value;
+  var GroupDescription = document.forms["form2"]["GroupDescription"].value;
+  var GroupArea = document.forms["form2"]["GroupArea"].value;
+  params = 'GroupName=' + GroupName + '&GroupDescription=' + GroupDescription + '&GroupArea=' + GroupArea;
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", '/AddGroup', true); // true is asynchronous
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.onload = function () {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      console.log(xhttp.responseText);
+      document.getElementById("submit-error").innerHTML = xhttp.responseText;
+    } else {
+      console.error(xhttp.statusText);
+    }
+  };
+  xhttp.send(params);
+  return false;
+}
+</script>
+{% endblock %}

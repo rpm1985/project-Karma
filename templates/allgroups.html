@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<button onclick="window.location.href='/group'" class="addgroups"> Add Group </button>
+<table class="GroupTBL" border=1>
+
+  <thead>
+    <td class="columnTitles">Group Name</td>
+    <td class="columnTitles">Group Description</td>
+    <td class="columnTitles">Group Area</td>
+    <td class="columnTitles"> Click to join</td>
+  </thead>
+
+{% for info in rows %}
+<tr class="Block">
+  <td class="RowInfo">{{info["GroupName"]}}</td>
+  <td class="RowInfo">{{info["GroupDescription"]}}</td>
+  <td class="RowInfo">{{info["GroupArea"]}}</td>
+  <td class="RowInfo"><button  class="joinbutton" onclick="Alert1()"> Join Group </button></td>
+</tr>
+{% endfor %}
+</table>
+<script>
+  function Alert1 () {
+    alert("You have successfully joined the group");
+    window.location.href='/alltasks';
+  }
+ </script>
+
+{% endblock %}
